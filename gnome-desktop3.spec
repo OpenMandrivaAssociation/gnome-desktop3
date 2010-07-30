@@ -1,22 +1,24 @@
-%define	api_version 2
-%define lib_major   17
-%define libname	%mklibname %{name}-%{api_version}_ %{lib_major}
-%define libnamedev %mklibname -d %{name}-%{api_version}
+%define oname gnome-desktop
+%define	api_version 3
+%define api 3.0
+%define lib_major   0
+%define libname	%mklibname %{oname}-%{api_version}_ %{lib_major}
+%define libnamedev %mklibname -d %{oname}-%{api_version}
 
 %define req_startup_notification_version 0.5
-
 Summary:          Package containing code shared among gnome-panel, gnome-session, nautilus, etc
-Name:             gnome-desktop
-Version: 2.31.2
-Release: %mkrel 2
+Name: %{oname}3
+Version: 2.90.4
+Release: %mkrel 1
 License:          GPLv2+ and LGPLv2+
 Group:            Graphical desktop/GNOME
-Source0:          http://ftp.gnome.org/pub/GNOME/sources/gnome-desktop/%{name}-%{version}.tar.bz2
-BuildRoot:        %{_tmppath}/%{name}-%{version}-root
+Source0:          http://ftp.gnome.org/pub/GNOME/sources/gnome-desktop/%{oname}-%{version}.tar.bz2
+BuildRoot:        %{_tmppath}/%{oname}-%{version}-root
 URL:              http://www.gnome.org
 BuildRequires:	  startup-notification-devel >= %{req_startup_notification_version}
-BuildRequires: gtk+2-devel >= 2.14.0
+BuildRequires: gtk+3-devel
 BuildRequires: glib2-devel >= 2.19.1
+BuildRequires: libgdk_pixbuf2.0-devel >= 2.21.3
 BuildRequires: libGConf2-devel
 BuildRequires: gtk-doc
 BuildRequires:	  scrollkeeper
@@ -33,7 +35,7 @@ GNOME user environment.
 Summary:	%{summary}
 Group:		System/Libraries
 Requires:   %{name}-common >= %{version}-%{release}
-Provides:	%{name}-%{api_version} = %{version}-%{release}
+Provides:	%{oname}-%{api_version} = %{version}-%{release}
 Requires: libstartup-notification-1 >= %{req_startup_notification_version}
 
 %description -n %{libname}
@@ -45,10 +47,9 @@ desktop.
 Summary:	Static libraries, include files for gnome-desktop
 Group:		Development/GNOME and GTK+
 Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-%{api_version}-devel = %{version}-%{release}
+Provides:	lib%{oname}-%{api_version}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}
 Requires:   libstartup-notification-1-devel >= %{req_startup_notification_version}
-Obsoletes: %mklibname -d %{name}-2_ 2
 
 %description -n %{libnamedev}
 Static libraries, include files for internal library libgnomedesktop.
@@ -56,14 +57,13 @@ Static libraries, include files for internal library libgnomedesktop.
 %package common
 Summary: Data files needed by libgnomedesktop library
 Group:	%{group}
-Conflicts: %{name} < 2.20.0-1mdv
 Requires: ldetect-lst >= 0.1.282
 
 %description common
 Data files needed by libgnomedesktop library.
 
 %prep
-%setup -q
+%setup -q -n %oname-%version
 
 %build
 
@@ -73,16 +73,16 @@ Data files needed by libgnomedesktop library.
 
 
 %install
-rm -rf $RPM_BUILD_ROOT %{name}-2.0.lang
+rm -rf $RPM_BUILD_ROOT *.lang
 
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std 
-%find_lang %{name}-2.0
+%find_lang %{oname}-%api
 for omf in %buildroot%_datadir/omf/*/{*-??.omf,*-??_??.omf,*-???.omf};do
-echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %name-2.0.lang
+echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %oname-%api.lang
 done
 for d in `ls -1 %buildroot%_datadir/gnome/help/`; do
   %find_lang $d --with-gnome
-  cat $d.lang >> %name-2.0.lang
+  cat $d.lang >> %oname-%api.lang
 done
 
 %clean
@@ -93,14 +93,6 @@ done
 
 %postun
 %clean_scrollkeeper
-
-%if %mdkversion < 200900
-%post -p /sbin/ldconfig -n %{libname}
-%endif
-
-%if %mdkversion < 200900
-%postun -p /sbin/ldconfig -n %{libname}
-%endif
 
 %files 
 %defattr (-, root, root)
@@ -126,5 +118,5 @@ done
 %{_libdir}/pkgconfig/*
 %doc %_datadir/gtk-doc/html/*
 
-%files common -f %{name}-2.0.lang
+%files common -f %{oname}-%api.lang
 %defattr (-, root, root)
