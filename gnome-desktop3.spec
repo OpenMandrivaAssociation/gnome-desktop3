@@ -8,7 +8,7 @@
 %define req_startup_notification_version 0.5
 Summary:          Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name: %{oname}3
-Version: 2.90.4
+Version: 2.90.5
 Release: %mkrel 1
 License:          GPLv2+ and LGPLv2+
 Group:            Graphical desktop/GNOME
@@ -103,7 +103,6 @@ done
 %{_datadir}/omf/*/*-C.omf
 %{_datadir}/gnome-about
 %{_datadir}/applications/*
-%{_datadir}/pixmaps/*
 
 %files -n %{libname}
 %defattr (-, root, root)
