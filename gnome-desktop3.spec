@@ -8,24 +8,27 @@
 %define req_startup_notification_version 0.5
 Summary:          Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name: %{oname}3
-Version: 2.90.5
+Version: 2.91.92
 Release: %mkrel 1
 License:          GPLv2+ and LGPLv2+
 Group:            Graphical desktop/GNOME
 Source0:          http://ftp.gnome.org/pub/GNOME/sources/gnome-desktop/%{oname}-%{version}.tar.bz2
 BuildRoot:        %{_tmppath}/%{oname}-%{version}-root
 URL:              http://www.gnome.org
-BuildRequires:	  startup-notification-devel >= %{req_startup_notification_version}
-BuildRequires: gtk+3-devel
+BuildRequires: startup-notification-devel >= 0.5
+BuildRequires: gtk+3-devel >= 3.0
 BuildRequires: glib2-devel >= 2.19.1
 BuildRequires: libgdk_pixbuf2.0-devel >= 2.21.3
-BuildRequires: libGConf2-devel
 BuildRequires: gtk-doc
-BuildRequires:	  scrollkeeper
-BuildRequires:	gnome-doc-utils >= 0.3.2
-BuildRequires:	libxslt-proc
-BuildRequires:    intltool >= 0.40.0
+BuildRequires: scrollkeeper
+BuildRequires: gnome-doc-utils >= 0.3.2
+BuildRequires: gsettings-desktop-schemas-devel >= 0.1.4
+BuildRequires: gobject-introspection-devel >= 0.9.7
+BuildRequires: libxslt-proc
+BuildRequires: intltool >= 0.40.0
 BuildRequires: ldetect-lst
+Requires: ldetect-lst >= 0.1.282
+Obsoletes: %{name}-common < 2.91.92
 
 %description
 This package contains some data files and other shared components of the
@@ -34,7 +37,7 @@ GNOME user environment.
 %package -n %{libname}
 Summary:	%{summary}
 Group:		System/Libraries
-Requires:   %{name}-common >= %{version}-%{release}
+Requires:   %{name} >= %{version}-%{release}
 Provides:	%{oname}-%{api_version} = %{version}-%{release}
 Requires: libstartup-notification-1 >= %{req_startup_notification_version}
 
@@ -54,23 +57,12 @@ Requires:   libstartup-notification-1-devel >= %{req_startup_notification_versio
 %description -n %{libnamedev}
 Static libraries, include files for internal library libgnomedesktop.
 
-%package common
-Summary: Data files needed by libgnomedesktop library
-Group:	%{group}
-Requires: ldetect-lst >= 0.1.282
-
-%description common
-Data files needed by libgnomedesktop library.
-
 %prep
-%setup -q -n %oname-%version
+%setup -qn %oname-%version
 
 %build
-
 %configure2_5x --with-gnome-distributor="%vendor" --disable-scrollkeeper --with-pnp-ids-path=%{_datadir}/misc/pnp.ids
-
-%make LIBS=-lm
-
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT *.lang
@@ -94,28 +86,24 @@ done
 %postun
 %clean_scrollkeeper
 
-%files 
+%files -f %{oname}-%api.lang
 %defattr (-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_datadir}/gnome/gnome-version.xml
 %dir %{_datadir}/omf/*
 %{_datadir}/omf/*/*-C.omf
-%{_datadir}/gnome-about
-%{_datadir}/applications/*
 
 %files -n %{libname}
 %defattr (-, root, root)
 %{_libdir}/libgnome-desktop-%{api_version}.so.%{lib_major}*
+%{_libdir}/girepository-1.0/GnomeDesktop-3.0.typelib
 
 %files -n %{libnamedev}
 %defattr (-, root, root)
 %{_includedir}/*
 %{_libdir}/*.a
-%attr(644,root,root) %{_libdir}/*.la
+%{_libdir}/*.la
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
+%{_datadir}/gir-1.0/GnomeDesktop-3.0.gir
 %doc %_datadir/gtk-doc/html/*
-
-%files common -f %{oname}-%api.lang
-%defattr (-, root, root)
