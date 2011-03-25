@@ -8,7 +8,7 @@
 %define req_startup_notification_version 0.5
 Summary:          Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name: %{oname}3
-Version: 2.91.92
+Version: 2.91.93
 Release: %mkrel 1
 License:          GPLv2+ and LGPLv2+
 Group:            Graphical desktop/GNOME
