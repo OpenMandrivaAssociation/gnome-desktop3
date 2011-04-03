@@ -9,7 +9,7 @@
 Summary:          Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name: %{oname}3
 Version: 2.91.93
-Release: %mkrel 1
+Release: %mkrel 2
 License:          GPLv2+ and LGPLv2+
 Group:            Graphical desktop/GNOME
 Source0:          http://ftp.gnome.org/pub/GNOME/sources/gnome-desktop/%{oname}-%{version}.tar.bz2
@@ -29,6 +29,7 @@ BuildRequires: intltool >= 0.40.0
 BuildRequires: ldetect-lst
 Requires: ldetect-lst >= 0.1.282
 Obsoletes: %{name}-common < 2.91.92
+Conflicts: gnome-desktop-common < %{version}
 
 %description
 This package contains some data files and other shared components of the
