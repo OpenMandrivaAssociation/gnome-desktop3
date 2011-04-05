@@ -8,8 +8,8 @@
 %define req_startup_notification_version 0.5
 Summary:          Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name: %{oname}3
-Version: 2.91.93
-Release: %mkrel 2
+Version: 3.0.0
+Release: %mkrel 1
 License:          GPLv2+ and LGPLv2+
 Group:            Graphical desktop/GNOME
 Source0:          http://ftp.gnome.org/pub/GNOME/sources/gnome-desktop/%{oname}-%{version}.tar.bz2
