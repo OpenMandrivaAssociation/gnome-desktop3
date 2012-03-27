@@ -1,17 +1,17 @@
 %define oname gnome-desktop
 
 %define	api_version	3
-%define api			3.0
-%define lib_major	2
+%define api		3.0
+%define major	2
 
-%define libname		%mklibname %{oname} %{api_version} %{lib_major}
+%define libname		%mklibname %{oname} %{api_version} %{major}
 %define develname	%mklibname -d %{oname} %{api_version}
 %define gi_libname	%mklibname %{oname}-gir %{api}
 
 Summary:	Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name:		%{oname}3
 Version:	3.2.1
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org
@@ -35,6 +35,7 @@ BuildRequires:  pkgconfig(xrandr) >= 1.2
 Requires:	ldetect-lst >= 0.1.282
 Obsoletes:	%{name}-common < 2.91.92
 Conflicts:	gnome-desktop-common < 2.32.1-2
+%rename %{oname}
 
 %description
 This package contains some data files and other shared components of the
@@ -77,7 +78,7 @@ Static libraries, include files for internal library libgnomedesktop.
 	--disable-scrollkeeper \
 	--with-pnp-ids-path=%{_datadir}/misc/pnp.ids
 
-%make
+%make LIBS='-lrt -lgmodule-2.0'
 
 %install
 rm -rf %{buildroot} *.lang
@@ -85,25 +86,19 @@ rm -rf %{buildroot} *.lang
 %makeinstall_std 
 rm -f %{buildroot}%{_libdir}/*.la
 
-%find_lang %{oname}-%api
-for omf in %{buildroot}%{_datadir}/omf/*/{*-??.omf,*-??_??.omf,*-???.omf};do
-echo "%lang($(basename $omf|sed -e s/.*-// -e s/.omf//)) $(echo $omf|sed -e s!%{buildroot}!!)" >> %{oname}-%api.lang
-done
-
+%find_lang %{oname}-%{api}
 for d in `ls -1 %{buildroot}%{_datadir}/gnome/help/`; do
   %find_lang $d --with-gnome
-  cat $d.lang >> %{oname}-%api.lang
+  cat $d.lang >> %{oname}-%{api}.lang
 done
 
 
-%files -f %{oname}-%api.lang
+%files -f %{oname}-%{api}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README
 %{_datadir}/gnome/gnome-version.xml
-%dir %{_datadir}/omf/*
-%{_datadir}/omf/*/*-C.omf
 
 %files -n %{libname}
-%{_libdir}/libgnome-desktop-%{api_version}.so.%{lib_major}*
+%{_libdir}/libgnome-desktop-%{api_version}.so.%{major}*
 
 %files -n %{gi_libname}
 %{_libdir}/girepository-1.0/GnomeDesktop-%{api}.typelib
