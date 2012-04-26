@@ -6,31 +6,29 @@
 
 %define libname		%mklibname %{oname} %{api_version} %{major}
 %define develname	%mklibname -d %{oname} %{api_version}
-%define gi_libname	%mklibname %{oname}-gir %{api}
+%define girname		%mklibname %{oname}-gir %{api}
 
 Summary:	Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name:		%{oname}3
-Version:	3.2.1
-Release:	2
+Version:	3.4.1
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org
 Source0:	http://download.gnome.org/sources/%{oname}/3.2/%{oname}-%{version}.tar.xz
 
-BuildRequires:	gnome-doc-utils >= 0.3.2
+BuildRequires:	gnome-doc-utils
 BuildRequires:	gtk-doc
-BuildRequires:	intltool >= 0.40.0
+BuildRequires:	intltool
 BuildRequires:	ldetect-lst
-BuildRequires:	scrollkeeper
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.21.3
-BuildRequires:  pkgconfig(gio-2.0) >= 2.19.1
-BuildRequires:  pkgconfig(glib-2.0) >= 2.19.1
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= 0.1.4
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.0
+BuildRequires:  pkgconfig(gsettings-desktop-schemas)
+BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xext) >= 1.2
-BuildRequires:  pkgconfig(xrandr) >= 1.2
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xrandr)
 
 Requires:	ldetect-lst >= 0.1.282
 Obsoletes:	%{name}-common < 2.91.92
@@ -51,22 +49,22 @@ This package contains an internal library
 (libgnomedesktop) used to implement some portions of the GNOME
 desktop.
 
-%package -n %{gi_libname}
+%package -n %{girname}
 Summary:	GObject Introspection interface description for %{oname}
 Group:		System/Libraries
-Requires:	%{libname} = %{version}-%{release}
 
-%description -n %{gi_libname}
+%description -n %{girname}
 GObject Introspection interface description for %{oname}.
 
 %package -n %{develname}
-Summary:	Static libraries, include files for %{oname}
+Summary:	Development libraries, include files for %{oname}
 Group:		Development/GNOME and GTK+
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
+Requires:	%{girname} = %{version}-%{release}
 
 %description -n %{develname}
-Static libraries, include files for internal library libgnomedesktop.
+Development libraries, include files for internal library %{oname}.
 
 %prep
 %setup -qn %{oname}-%{version}
@@ -81,8 +79,6 @@ Static libraries, include files for internal library libgnomedesktop.
 %make LIBS='-lrt -lgmodule-2.0'
 
 %install
-rm -rf %{buildroot} *.lang
-
 %makeinstall_std 
 rm -f %{buildroot}%{_libdir}/*.la
 
@@ -92,7 +88,6 @@ for d in `ls -1 %{buildroot}%{_datadir}/gnome/help/`; do
   cat $d.lang >> %{oname}-%{api}.lang
 done
 
-
 %files -f %{oname}-%{api}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README
 %{_datadir}/gnome/gnome-version.xml
@@ -100,7 +95,7 @@ done
 %files -n %{libname}
 %{_libdir}/libgnome-desktop-%{api_version}.so.%{major}*
 
-%files -n %{gi_libname}
+%files -n %{girname}
 %{_libdir}/girepository-1.0/GnomeDesktop-%{api}.typelib
 
 %files -n %{develname}
