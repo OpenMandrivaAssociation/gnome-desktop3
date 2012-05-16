@@ -15,7 +15,7 @@ Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org
-Source0:	http://download.gnome.org/sources/%{oname}/%{oname}-%{version}.tar.xz
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{oname}/%{oname}-%{version}.tar.xz
 
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
