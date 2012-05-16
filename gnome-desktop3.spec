@@ -2,7 +2,7 @@
 
 %define	api_version	3
 %define api		3.0
-%define major	2
+%define major		2
 
 %define libname		%mklibname %{oname} %{api_version} %{major}
 %define develname	%mklibname -d %{oname} %{api_version}
@@ -15,25 +15,25 @@ Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org
-Source0:	http://download.gnome.org/sources/%{oname}/3.2/%{oname}-%{version}.tar.xz
+Source0:	http://download.gnome.org/sources/%{oname}/%{oname}-%{version}.tar.xz
 
-BuildRequires:	gnome-doc-utils
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
 BuildRequires:	ldetect-lst
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gnome-doc-utils)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gsettings-desktop-schemas)
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  pkgconfig(xrandr)
+BuildRequires:	pkgconfig(gsettings-desktop-schemas)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xrandr)
 
 Requires:	ldetect-lst >= 0.1.282
 Obsoletes:	%{name}-common < 2.91.92
 Conflicts:	gnome-desktop-common < 2.32.1-2
-%rename %{oname}
+%rename 	%{oname}
 
 %description
 This package contains some data files and other shared components of the
