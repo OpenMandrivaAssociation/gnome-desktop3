@@ -3,15 +3,15 @@
 %define oname	gnome-desktop
 %define	appver	3
 %define api	3.0
-%define major	4
+%define major	7
 %define libname	%mklibname %{oname} %{appver} %{major}
 %define girname	%mklibname %{oname}-gir %{api}
 %define devname	%mklibname -d %{oname} %{appver}
 
 Summary:	Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name:		%{oname}%{appver}
-Version:	3.6.2
-Release:	2
+Version:	3.8.3
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org
