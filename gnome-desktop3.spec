@@ -10,7 +10,7 @@
 
 Summary:	Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name:		%{oname}%{appver}
-Version:	3.8.3
+Version:	3.8.4
 Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
