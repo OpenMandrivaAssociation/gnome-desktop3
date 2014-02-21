@@ -100,6 +100,6 @@ Development libraries, include files for internal library %{oname}.
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
-%{_libexecfir}/gnome-rr-debug
+%{_libexecdir}/gnome-rr-debug
 %{_datadir}/gir-1.0/GnomeDesktop-%{api}.gir
 
