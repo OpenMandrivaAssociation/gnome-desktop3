@@ -88,6 +88,7 @@ Development libraries, include files for internal library %{oname}.
 %doc AUTHORS COPYING ChangeLog NEWS README
 %{_libdir}/gnome-rr-debug
 %{_datadir}/gnome/gnome-version.xml
+%{_libexecdir}/gnome-rr-debug
 
 %files -n %{libname}
 %{_libdir}/libgnome-desktop-%{appver}.so.%{major}*
