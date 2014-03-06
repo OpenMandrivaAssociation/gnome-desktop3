@@ -86,7 +86,6 @@ Development libraries, include files for internal library %{oname}.
 
 %files -f %{oname}-%{api}.lang
 %doc AUTHORS COPYING ChangeLog NEWS README
-%{_libdir}/gnome-rr-debug
 %{_datadir}/gnome/gnome-version.xml
 %{_libexecdir}/gnome-rr-debug
 
