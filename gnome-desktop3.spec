@@ -3,15 +3,15 @@
 %define oname	gnome-desktop
 %define	appver	3
 %define api	3.0
-%define major	7
+%define major	10
 %define libname	%mklibname %{oname} %{appver} %{major}
 %define girname	%mklibname %{oname}-gir %{api}
 %define devname	%mklibname -d %{oname} %{appver}
 
 Summary:	Package containing code shared among gnome-panel, gnome-session, nautilus, etc
 Name:		%{oname}%{appver}
-Version:	3.8.4
-Release:	7
+Version:	3.14.0
+Release:	1
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/GNOME
 URL:		http://www.gnome.org
@@ -72,7 +72,7 @@ Development libraries, include files for internal library %{oname}.
 %setup -qn %{oname}-%{version}
 
 %build
-%configure2_5x \
+%configure \
 	--disable-static \
 	--with-gnome-distributor="%{_vendor}" \
 	--disable-scrollkeeper \
