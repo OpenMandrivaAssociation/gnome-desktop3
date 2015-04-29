@@ -1,6 +1,0 @@
-removed_sources:
-  gnome-desktop-3.6.2.tar.xz: b5a8f4a008bc36f9310ee9d943a0070a2373cb38
-  gnome-desktop-3.8.3.tar.xz: 7c93d6083593a0620ed41d0c81e4657eadf95da0
-  gnome-desktop-3.8.4.tar.xz: 1cca03ccc13fd62d0884e84193d3bfda5331ac81
-sources:
-  gnome-desktop-3.14.0.tar.xz: c2c0e30ed10e4a6ecd1f4278272a3c86a4991735
